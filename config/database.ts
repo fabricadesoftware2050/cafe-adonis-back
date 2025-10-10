@@ -10,7 +10,6 @@ const dbConfig = defineConfig({
         filename:'./database/database.sqlite',
       },
       useNullAsDefault:true,
-      healthCheck:false,
       debug:false
     },
     mysql: {
