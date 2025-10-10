@@ -11,11 +11,11 @@ export default class OrdersController {
       let all = []
       if(page){
         const limit = request.input('limit');
-        all = await Order.query().paginate(page,limit)
+        all = await Order.query().orderBy('createdAt','desc').paginate(page,limit)
       }else if(search){
-            all = await Order.query().whereLike('id',search).paginate(page)
+            all = await Order.query().whereLike('id',search).orderBy('createdAt','desc').paginate(page)
           }else{
-        all = await Order.all()
+        all = await Order.query().orderBy('createdAt','desc')
       }
       return response.json({
         message:"Operación exitosa",
