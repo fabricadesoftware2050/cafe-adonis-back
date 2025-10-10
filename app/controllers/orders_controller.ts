@@ -6,16 +6,16 @@ export default class OrdersController {
      * Display a list of resource
      */
     async index({ response, request }: HttpContext) {
-      const page = request.input('page');
+      const page = request.input('page',1);
       const search = request.input('search');
       let all = []
       if(page){
-        const limit = request.input('limit');
-        all = await Order.query().orderBy('createdAt','desc').paginate(page,limit)
+        const limit = request.input('limit',10);
+        all = await Order.query().orderBy('id','desc').paginate(page,limit)
       }else if(search){
-            all = await Order.query().whereLike('id',search).orderBy('createdAt','desc').paginate(page)
+            all = await Order.query().whereLike('id',search).orderBy('id','desc').paginate(page)
           }else{
-        all = await Order.query().orderBy('createdAt','desc')
+        all = await Order.query().orderBy('id','desc')
       }
       return response.json({
         message:"Operación exitosa",
